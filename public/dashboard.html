@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secure File Upload</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+          <h1>Secure File Sharing</h1>
+          <nav>
+            <a href="/dashboard.html">Dashboard</a>
+            <a href="/upload.html">Upload</a>
+            <a href="#" onclick="logout()">Logout</a>
+          </nav>
+        </div>
+      </header>
+
+  <main class="upload-section">
+    <div class="container">
+      <h2>Upload Your Files</h2>
+      <p>Select files from your device to upload securely.</p>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="files" id="fileInput" multiple required>
+        <button type="submit" class="btn">Upload Files</button>
+      </form>
+      <div id="uploadStatus"></div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Secure File Sharing. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById('fileInput');
+      const files = fileInput.files;
+      const maxSize = 100 * 1024 * 1024; // 100MB in bytes
+  
+      // Validate file size
+      for (const file of files) {
+        if (file.size > maxSize) {
+          document.getElementById('uploadStatus').textContent = `Error: "${file.name}" is too large. Max size is 100MB.`;
+          document.getElementById('uploadStatus').style.color = 'red';
+          return;
+        }
+      }
+  
+      const formData = new FormData();
+      for (const file of files) {
+        formData.append('files', file);
+      }
+  
+      try {
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData
+        });
+  
+        if (res.ok) {
+          document.getElementById('uploadStatus').textContent = 'Files uploaded successfully!';
+          document.getElementById('uploadStatus').style.color = 'green';
+        } else {
+          document.getElementById('uploadStatus').textContent = 'Upload failed. Please try again.';
+          document.getElementById('uploadStatus').style.color = 'red';
+        }
+      } catch (error) {
+        console.error('Upload error:', error);
+        document.getElementById('uploadStatus').textContent = 'An error occurred during upload.';
+        document.getElementById('uploadStatus').style.color = 'red';
+      }
+    });
+  </script>
+  
+</body>
+</html>
