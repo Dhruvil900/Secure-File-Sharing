@@ -1,106 +1,142 @@
 /* Reset & Base Styles */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f7f9fc;
-    color: #333;
-  }
-  
-  /* Container Layout */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  /* Header/Navbar */
-  .header {
-    background: #0061ff;
-    color: white;
-    padding: 20px 0;
-  }
-  
-  .header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .header h1 {
-    margin: 0;
-    font-size: 1.8rem;
-  }
-  
-  .header nav a {
-    color: white;
-    margin-left: 20px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .header nav a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Section for Upload Action */
-  .upload-section {
-    text-align: center;
-    padding: 60px 0;
-  }
-  
-  .upload-section h2 {
-    font-size: 2em;
-    margin-bottom: 10px;
-  }
-  
-  .upload-section p {
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 30px;
-  }
-  
-  /* Upload Form */
-  .upload-section form {
-    display: inline-block;
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  
-  .upload-section input[type="file"] {
-    display: block;
-    margin: 0 auto 20px auto;
-    font-size: 1em;
-  }
-  
-  .upload-section .btn {
-    background-color: #0061ff;
-    color: #fff;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-  }
-  
-  .upload-section .btn:hover {
-    background-color: #0051cc;
-  }
-  
-  #uploadStatus {
-    margin-top: 20px;
-    font-size: 1em;
-    color: #333;
-  }
-  
-  /* Footer */
-  .footer {
-    background: #f1f1f1;
-    text-align: center;
-    padding: 20px 0;
-    font-size: 0.9em;
-    color: #999;
-    margin-top: 40px;
-  }
-  
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f9fc;
+  color: #333;
+}
+
+/* Container Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header/Navbar */
+.header {
+  background: #0061ff;
+  color: white;
+  padding: 20px 0;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.header nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Section for Upload Action */
+.upload-section {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.upload-section h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.upload-section p {
+  font-size: 1em;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* Upload Form */
+.upload-section form {
+  display: inline-block;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.upload-section input[type="file"] {
+  display: block;
+  margin: 0 auto 20px auto;
+  font-size: 1em;
+}
+
+.upload-section .btn {
+  background-color: #0061ff;
+  color: #fff;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.upload-section .btn:hover {
+  background-color: #0051cc;
+}
+
+#uploadStatus {
+  margin-top: 20px;
+  font-size: 1em;
+  color: #333;
+}
+
+/* Footer */
+.footer {
+  background: #f1f1f1;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.9em;
+  color: #999;
+  margin-top: 40px;
+}
+.file-list {
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.file-item {
+  padding: 10px;
+  margin: 5px 0;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.download-section {
+  display: flex;
+  margin: 5px 0;
+}
+
+.link-input {
+  flex-grow: 1;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+}
+
+.download-section button {
+  padding: 5px 10px;
+  background: #0061ff;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.download-section button:hover {
+  background: #0051cc;
+}

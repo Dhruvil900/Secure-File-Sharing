@@ -11,13 +11,14 @@
     <div class="container">
       <h1>Secure File Sharing</h1>
       <nav>
+        <a href="index.html">Home</a>
         <a href="register.html">Register</a>
         <a href="login.html">Login</a>
       </nav>
     </div>
   </header>
 
-  <div class="container">
+  <div class="form-container">
     <h2>Login</h2>
     <form id="loginForm">
       <input type="email" name="email" placeholder="Email" required>
@@ -35,7 +36,7 @@
       };
 
       try {
-        const res = await fetch('/api/login', {
+        const res = await fetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
