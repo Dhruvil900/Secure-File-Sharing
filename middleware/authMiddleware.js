@@ -1,34 +1,15 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-const protect = async (req, res, next) => {
+exports.authenticateToken = async (req, res, next) => {
+  const auth = req.headers['authorization'];
+  const token = auth && auth.split(' ')[1];
+  if (!token) return res.sendStatus(401);
   try {
-    // 1. Get token from header
-    const token = req.headers.authorization?.split(' ')[1];
-    
-    if (!token) {
-      return res.status(401).json({
-        success: false,
-        message: 'Not authorized, no token'
-      });
-    }
-
-    // 2. Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    
-    // 3. Attach user to request
-    req.user = {
-      id: decoded.id,  // Make sure your JWT payload contains "id"
-      email: decoded.email // Optional
-    };
-    
+    req.user = await User.findById(decoded.id).select('-password');
     next();
-  } catch (error) {
-    console.error('Authentication error:', error);
-    return res.status(401).json({
-      success: false,
-      message: 'Not authorized, token failed'
-    });
+  } catch {
+    res.status(403).json({ message: 'Invalid or expired token' });
   }
 };
-
-module.exports = {protect};
