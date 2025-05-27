@@ -1,88 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Secure File Sharing</title>
-    <link rel="stylesheet" href="register.css" />
-  </head>
-  <body>
-    <header class="header">
-      <div class="container">
-        <h1>Secure File Sharing</h1>
-        <nav>
-          <a href="index.html">Home</a>
-          <a href="login.html">Login</a>
-        </nav>
-      </div>
-    </header>
-
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure File Sharing</title>
+  <link rel="stylesheet" href="register.css" />
+</head>
+<body>
+  <header class="header">
     <div class="container">
-      <h2>Register</h2>
-      <form id="registerForm">
-        <input type="text" name="firstName" placeholder="First Name" required />
-        <input type="text" name="lastName" placeholder="Last Name" required />
-        <select name="gender" required>
-          <option value="">Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-        </select>
-        <input type="date" name="birthdate" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          required
-        />
-        <button type="submit">Register</button>
-      </form>
+      <h1>Secure File Sharing</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+      </nav>
     </div>
+  </header>
 
-    <script>
-      document
-        .getElementById("registerForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
+  <div class="form-container">
+    <h2>Register</h2>
+    <form id="registerForm">
+      <input type="text" name="firstName" placeholder="First Name" required />
+      <input type="text" name="lastName" placeholder="Last Name" required />
+      <select name="gender" required>
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="date" name="birthdate" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <input type="password" name="confirmPassword" placeholder="Confirm Password" required />
+      <button type="submit">Register</button>
+    </form>
+  </div>
 
-          const form = e.target;
-          const formData = {
-            firstName: form.firstName.value,
-            lastName: form.lastName.value,
-            gender: form.gender.value,
-            birthdate: form.birthdate.value,
-            email: form.email.value,
-            password: form.password.value,
-          };
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-          if (form.password.value !== form.confirmPassword.value) {
-            alert("Passwords do not match");
-            return;
-          }
+      const form = e.target;
+      const formData = {
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        gender: form.gender.value,
+        birthdate: form.birthdate.value,
+        email: form.email.value,
+        password: form.password.value,
+      };
 
-          try {
-            const res = await fetch("/api/auth/register", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(formData),
-            });
+      if (form.password.value !== form.confirmPassword.value) {
+        alert("Passwords do not match");
+        return;
+      }
 
-            if (res.ok) {
-              window.location.href = "/login.html";
-            } else {
-              alert("Registration failed");
-            }
-          } catch (err) {
-            console.error(err);
-          }
+      try {
+        const res = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
         });
-    </script>
-  </body>
+
+        if (res.ok) {
+          window.location.href = "/login.html";
+        } else {
+          alert("Registration failed");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+</body>
 </html>

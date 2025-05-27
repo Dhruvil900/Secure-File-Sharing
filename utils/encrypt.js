@@ -2,12 +2,11 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
-// Configuration
-const ALGORITHM = 'aes-256-cbc';
-const KEY_LENGTH = 32; // 256 bits
-const IV_LENGTH = 16;  // AES block size
 
-// Get encryption key from environment variable
+const ALGORITHM = 'aes-256-cbc';
+const KEY_LENGTH = 32; 
+const IV_LENGTH = 16;  
+
 const ENCRYPTION_KEY = process.env.FILE_ENCRYPTION_KEY || (() => {
     console.warn('⚠️  Using temporary encryption key - set FILE_ENCRYPTION_KEY in .env for production');
     return crypto.randomBytes(KEY_LENGTH).toString('hex');
@@ -20,19 +19,15 @@ const ENCRYPTION_KEY = process.env.FILE_ENCRYPTION_KEY || (() => {
  */
 const encryptFile = async (filePath) => {
     try {
-        // Validate inputs
         if (!fs.existsSync(filePath)) {
             throw new Error('File not found');
         }
 
-        // Generate random IV for each encryption
         const iv = crypto.randomBytes(IV_LENGTH);
         const key = Buffer.from(ENCRYPTION_KEY, 'hex');
         
-        // Create cipher
         const cipher = crypto.createCipheriv(ALGORITHM, key, iv);
         
-        // Read and encrypt file
         const fileData = fs.readFileSync(filePath);
         const encryptedData = Buffer.concat([
             cipher.update(fileData),
@@ -41,7 +36,7 @@ const encryptFile = async (filePath) => {
 
         return {
             encryptedData,
-            iv: iv.toString('hex') // Store as hex string
+            iv: iv.toString('hex') 
         };
     } catch (error) {
         console.error('Encryption failed:', error);
@@ -74,5 +69,5 @@ const decryptFile = (encryptedData, ivHex) => {
 module.exports = {
     encryptFile,
     decryptFile,
-    ENCRYPTION_KEY // Export for key management
+    ENCRYPTION_KEY 
 };
