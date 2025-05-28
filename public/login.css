@@ -72,3 +72,14 @@ button {
 button:hover {
   background: #1e7e34;
 }
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Highlight invalid fields */
+input:invalid {
+  border-color: #dc3545;
+}
