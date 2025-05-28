@@ -31,30 +31,25 @@
   <script>
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  
+  const email = e.target.email.value;
+  const password = e.target.password.value;
+
   try {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: e.target.email.value,
-        password: e.target.password.value
-      })
+      body: JSON.stringify({ email, password }),
     });
 
     const data = await res.json();
-    
     if (res.ok) {
       localStorage.setItem('token', data.token);
       window.location.href = '/dashboard.html';
     } else {
-      // Show error near the form
-      document.getElementById('loginError').textContent = data.message;
-      document.getElementById('loginError').style.display = 'block';
+      alert(data.message || 'Login failed');
     }
   } catch (err) {
-    console.error(err);
-    alert('Login failed. Please try again.');
+    alert('Error logging in');
   }
 });
   </script>

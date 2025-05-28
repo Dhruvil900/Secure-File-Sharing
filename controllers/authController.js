@@ -1,43 +1,23 @@
-const User = require('../models/User');
-const jwt = require('jsonwebtoken');
+// controllers/authController.js
+const User = require('../models/User');  // Add this line
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 exports.registerUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    // Check if email already exists
     const existingUser = await User.findOne({ email });
+
     if (existingUser) {
-      return res.status(400).json({ 
-        success: false,
-        message: 'Email already registered',
-        field: 'email'  // Indicates which field caused the error
-      });
+      return res.status(400).json({ message: 'Email already registered' });
     }
 
-    // Validate password length
-    if (password.length < 6) {
-      return res.status(400).json({
-        success: false,
-        message: 'Password must be at least 6 characters',
-        field: 'password'
-      });
-    }
-
-    const hashed = await bcrypt.hash(password, 10);
-    const user = await User.create({ email, password: hashed });
-    
-    res.status(201).json({ 
-      success: true,
-      message: 'User registered successfully' 
-    });
+    const hashedPassword = await bcrypt.hash(password, 12);
+    const user = await User.create({ email, password: hashedPassword });
+    res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
-    console.error("Registration error:", err);
-    res.status(500).json({ 
-      success: false,
-      message: 'Registration failed. Please try again.' 
-    });
+    console.error('Registration error:', err);
+    res.status(500).json({ message: 'Registration failed' });
   }
 };
 
@@ -47,36 +27,17 @@ exports.loginUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: 'Incorrect email or password', // Generic message for security
-        field: 'credentials'
-      });
+      return res.status(401).json({ message: 'Incorrect email or password' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({
-        success: false,
-        message: 'Incorrect email or password',
-        field: 'credentials'
-      });
+      return res.status(401).json({ message: 'Incorrect email or password' });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { 
-      expiresIn: '1h' 
-    });
-    
-    res.json({ 
-      success: true,
-      token,
-      message: 'Login successful' 
-    });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token });
   } catch (err) {
-    console.error("Login error:", err);
-    res.status(500).json({
-      success: false,
-      message: 'Login failed. Please try again.'
-    });
+    res.status(500).json({ message: 'Login failed' });
   }
 };
