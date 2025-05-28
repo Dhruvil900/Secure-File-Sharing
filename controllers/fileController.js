@@ -1,4 +1,4 @@
-const File = require('../models/File');
+const File = require('../models/file');
 const jwt = require('jsonwebtoken');
 
 exports.uploadFile = async (req, res) => {
