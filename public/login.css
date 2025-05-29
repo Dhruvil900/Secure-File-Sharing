@@ -79,7 +79,6 @@ button:hover {
   margin-top: 0.25rem;
 }
 
-/* Highlight invalid fields */
 input:invalid {
   border-color: #dc3545;
 }

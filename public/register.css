@@ -1,11 +1,9 @@
-/* Base styles */
 body {
   font-family: Arial, sans-serif;
   background: #f0f4f8;
   margin: 0;
 }
 
-/* Navbar styles */
 .header {
   background: #0061ff;
   color: white;
@@ -37,7 +35,6 @@ body {
   text-decoration: underline;
 }
 
-/* Form section */
 .form-container {
   max-width: 400px;
   margin: 100px auto 40px auto;
@@ -85,7 +82,6 @@ button:hover {
   margin-top: 0.25rem;
 }
 
-/* Highlight invalid fields */
 input:invalid {
   border-color: #dc3545;
 }
