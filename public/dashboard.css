@@ -134,3 +134,35 @@ body {
 .download-section button:hover {
   background: #0051cc;
 }
+@media (max-width: 768px) {
+  .header .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header nav a {
+    margin: 10px 0;
+    display: block;
+  }
+
+  .upload-section form {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .download-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .link-input {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .download-section button {
+    width: 100%;
+    border-radius: 4px;
+  }
+}
