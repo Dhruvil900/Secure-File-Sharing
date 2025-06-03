@@ -100,24 +100,6 @@
       }
     }
 
-    function getExpirationFromToken(token) {
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        return payload.exp ? new Date(payload.exp * 1000) : null;
-      } catch (err) {
-        return null;
-      }
-    }
-
-    function getTimeLeft(expiryDate) {
-      const now = new Date();
-      const ms = expiryDate - now;
-      if (ms <= 0) return "Expired";
-      const minutes = Math.floor((ms / 1000 / 60) % 60);
-      const hours = Math.floor((ms / 1000 / 60 / 60) % 24);
-      const days = Math.floor(ms / 1000 / 60 / 60 / 24);
-      return `${days}d ${hours}h ${minutes}m`;
-    }
 
     document
         .getElementById("uploadForm")

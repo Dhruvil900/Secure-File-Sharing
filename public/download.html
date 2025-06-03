@@ -14,29 +14,7 @@
   <button id="downloadBtn" style="display:none;">Download Now</button>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
-
-    const downloadBtn = document.getElementById('downloadBtn');
-    const fileStatus = document.getElementById('fileStatus');
-
-    fetch(`/api/download/${token}`, {
-      method: 'HEAD'
-    })
-    .then(res => {
-      if (res.ok) {
-        fileStatus.textContent = "Your download is ready.";
-        downloadBtn.style.display = "inline-block";
-        downloadBtn.onclick = () => {
-          window.location.href = `/api/download/${token}`;
-        };
-      } else {
-        fileStatus.textContent = "Link expired or invalid.";
-      }
-    })
-    .catch(() => {
-      fileStatus.textContent = "Failed to check file.";
-    });
+   
   </script>
 </body>
 </html>
