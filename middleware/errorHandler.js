@@ -14,6 +14,15 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    return res.status(400).json({ 
+      message: 'File too large (max 100MB)' 
+    });
+  }
+
+  res.status(500).json({ 
+    message: 'Something went wrong' 
+  });
 };
 
 module.exports = errorHandler;
