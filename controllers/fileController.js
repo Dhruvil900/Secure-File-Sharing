@@ -33,6 +33,18 @@ exports.getUserFiles = async (req, res) => {
   })));
 };
 
+exports.downloadFile = async (req, res) => {
+  try {
+    const decoded = jwt.verify(req.params.token, process.env.JWT_SECRET);
+    const file = await File.findOne({ storedName: decoded.file });
+    if (!file) return res.status(404).json({ message: 'File not found' });
+
+    res.download('uploads/' + file.storedName);
+  } catch (err) {
+    console.error("Download error:", err.message);
+    return res.status(403).json({ message: 'Token invalid or expired' });
+  }
+};
 
 exports.deleteFile = async (req, res) => {
   try {
